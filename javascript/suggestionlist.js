@@ -23,19 +23,16 @@ const placeSuggestions = {
 		input: (args) => {
 			placeSuggestions.place.value = args.target.value;
 			AJAXRequest(place.actionurl+"?app_id="+place.key+"&query="+placeSuggestions.place.value, place.action, "GET");
-			placeSuggestions.place.pattern = new RegExp(placeSuggestions.place.value, 'i');
 			const ulElement = document.getElementById(placeSuggestions.actionurl);
 			ulElement.innerText = "";
 			if(placeSuggestions.place.value === "")
 				return;
 			for(let list of place.list) {
-				if(list.toLowerCase().match(placeSuggestions.place.pattern)) {
 					const liElement = document.createElement("li");
 					liElement.setAttribute("id", list);
 					liElement.innerText = list;
 					ulElement.appendChild(liElement);
 					document.getElementById(list).addEventListener("click", placeSuggestions.place.action);
-				}
 			}
 			if(!ulElement.hasChildNodes()) {
 				const liElement = document.createElement("li");
